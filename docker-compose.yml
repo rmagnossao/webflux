@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+  webflux-db:
+    container_name: webflux-db
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=123456
+      - MONGO_INITDB_DATABASE=wbflx
+      - MONGO_INITDB_HOST=localhost
+    ports:
+      - "27017:27017"
+    volumes:
+      - "$PWD/mongo-entrypoint/:/docker-entrypoint-initdb.d/"
+    command: mongod
+  webflux-api:
+    container_name: webflux-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command:
+      - java
+      - "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005"
+      - "-XX:ParallelGCThreads=8"
+      - "-jar"
+      - "webflux-0.0.1-SNAPSHOT.jar"
+    links:
+      - webflux-db:database
+    ports:
+      - "8080:8080"
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
