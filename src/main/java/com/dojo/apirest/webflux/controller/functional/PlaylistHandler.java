@@ -1,4 +1,4 @@
-package com.dojo.apirest.webflux.controller.funcional;
+package com.dojo.apirest.webflux.controller.functional;
 
 import com.dojo.apirest.webflux.document.Playlist;
 import com.dojo.apirest.webflux.services.PlaylistService;

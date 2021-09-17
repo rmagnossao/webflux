@@ -1,4 +1,4 @@
-package com.dojo.apirest.webflux.controller.funcional;
+package com.dojo.apirest.webflux.controller.functional;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.RouterFunction;
